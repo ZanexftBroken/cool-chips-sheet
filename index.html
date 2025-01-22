@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Chips Sheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 8px 12px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-approve {
+            background-color: #28a745;
+        }
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+        .btn-pending {
+            background-color: #ffc107;
+            color: black;
+        }
+        .btn-pending:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sheet</h1>
+    </header>
+    <main>
+        <button class="btn" onclick="addNewRow()">Add New Product</button>
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price (€)</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td>Classic Leather Shoes</td>
+                    <td>Footwear</td>
+                    <td>50</td>
+                    <td>20</td>
+                    <td><span class="btn-pending">Pending</span></td>
+                    <td>
+                        <button class="btn btn-approve" onclick="approveRow(this)">Approve</button>
+                        <button class="btn" onclick="deleteRow(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        function addNewRow() {
+            const table = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            const productNameCell = newRow.insertCell(0);
+            const categoryCell = newRow.insertCell(1);
+            const priceCell = newRow.insertCell(2);
+            const stockCell = newRow.insertCell(3);
+            const statusCell = newRow.insertCell(4);
+            const actionsCell = newRow.insertCell(5);
+
+            productNameCell.innerHTML = `<input type='text' placeholder='Product Name'>`;
+            categoryCell.innerHTML = `<input type='text' placeholder='Category'>`;
+            priceCell.innerHTML = `<input type='number' placeholder='Price'>`;
+            stockCell.innerHTML = `<input type='number' placeholder='Stock'>`;
+            statusCell.innerHTML = `<span class='btn-pending'>Pending</span>`;
+            actionsCell.innerHTML = `
+                <button class='btn btn-approve' onclick='approveRow(this)'>Approve</button>
+                <button class='btn' onclick='deleteRow(this)'>Delete</button>`;
+        }
+
+        function deleteRow(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+
+        function approveRow(button) {
+            const row = button.parentElement.parentElement;
+            const statusCell = row.cells[4];
+            statusCell.innerHTML = `<span class='btn-approve'>Approved</span>`;
+        }
+    </script>
+</body>
+</html>
